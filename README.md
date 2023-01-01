@@ -174,3 +174,8 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
   ``` cmd
   az aks get-upgrades --resource-group rg-aks --name myAKSCluster
   ```
+
+- Don't forget to delete all the resources and resource-group to avoid the cost!!!
+  ``` cmd
+  az group delete --name rg-aks --yes --no-wait
+  ```

@@ -31,11 +31,13 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 ---
+---
 
 ## Commands
 
-#### [Reference: Azure K8s Service](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-app)
+### [Reference: Azure K8s Service](https://learn.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-app)
 
+---
 - Create resource group and Container registry
 
   ``` cmd
@@ -179,3 +181,28 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
   ``` cmd
   az group delete --name rg-aks --yes --no-wait
   ```
+
+
+---
+
+## ACR & AKS specific commands
+
+```
+az group create --name myResourceGroup --location centralindia  
+az acr create --resource-group myResourceGroup --name <acrName> --sku Basic
+
+# acrLoginServer = <acrName>.azureacr.io
+
+docker tag mcr.microsoft.com/azuredocs/azure-vote-front:v1 <acrLoginServer>/azure-vote-front:v1  
+docker images  
+docker push <acrLoginServer>/azure-vote-front:v1  
+az acr repository list --name <acrName> --output table
+
+az aks create \
+  --resource-group myResourceGroup --name myAKSCluster \
+  --node-count 2 --generate-ssh-keys \
+  --attach-acr <acrName>
+
+az aks get-credentials --resource-group myResourceGroup --name myAKSCluster
+> Merged "myAKSCluster" as current context in C:\Users\<User>\.kube\config
+```
